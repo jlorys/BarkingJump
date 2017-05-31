@@ -53,6 +53,14 @@ public class MenuState extends State {
     }
 
     @Override
+    public void dispose() {
+        background.dispose();
+        playBtn.dispose();
+        logo.dispose();
+        font.dispose();
+    }
+
+    @Override
     public void tap(float x, float y, int count, int button) {
         this.textureBounds = new Rectangle(189, 397,
                 playBtn.getWidth(),

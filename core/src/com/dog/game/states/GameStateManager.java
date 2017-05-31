@@ -19,6 +19,7 @@ public class GameStateManager {
     }
 
     public void set(State state) {
+        states.get(0).dispose();
         states.pop();
         states.push(state);
     }

@@ -61,6 +61,13 @@ public class GameEndState extends State {
     }
 
     @Override
+    public void dispose() {
+        background.dispose();
+        playBtn.dispose();
+        font.dispose();
+    }
+
+    @Override
     public void tap(float x, float y, int count, int button) {
         this.textureBounds = new Rectangle(88, 351, playBtn.getWidth(), playBtn.getHeight());
 
@@ -73,5 +80,4 @@ public class GameEndState extends State {
     public void pan(float x, float y, float deltaX, float deltaY) {
 
     }
-
 }

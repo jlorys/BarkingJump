@@ -158,43 +158,33 @@ public class PlayState extends State {
                 if (p.getY() == 1000 && !isQuestionAnswered.get(0)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(0, true);
-                    music.pause();
                 } else if (p.getY() == 2000 && !isQuestionAnswered.get(1)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(1, true);
-                    music.pause();
                 } else if (p.getY() == 3000 && !isQuestionAnswered.get(2)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(2, true);
-                    music.pause();
                 } else if (p.getY() == 4000 && !isQuestionAnswered.get(3)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(3, true);
-                    music.pause();
                 } else if (p.getY() == 5000 && !isQuestionAnswered.get(4)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(4, true);
-                    music.pause();
                 } else if (p.getY() == 6000 && !isQuestionAnswered.get(5)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(5, true);
-                    music.pause();
                 } else if (p.getY() == 7000 && !isQuestionAnswered.get(6)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(6, true);
-                    music.pause();
                 } else if (p.getY() == 8000 && !isQuestionAnswered.get(7)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(7, true);
-                    music.pause();
                 } else if (p.getY() == 9000 && !isQuestionAnswered.get(8)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(8, true);
-                    music.pause();
                 } else if (p.getY() == 10000 && !isQuestionAnswered.get(9)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(9, true);
-                    music.pause();
                 } else if (p.getY() == 10000 && isQuestionAnswered.get(9)) {
                     long stop = clock.millis();
                     float time = (stop - start);
@@ -242,6 +232,7 @@ public class PlayState extends State {
         sb.end();
     }
 
+    @Override
     public void dispose() {
         music.dispose();
         playerTextureWalkLeft.dispose();
@@ -249,6 +240,10 @@ public class PlayState extends State {
         platformTexture.dispose();
         platformQuestionTexture.dispose();
         background.dispose();
+        stone.dispose();
+        stoneWaterRight.dispose();
+        stoneWaterLeft.dispose();
+        water.dispose();
     }
 
     @Override

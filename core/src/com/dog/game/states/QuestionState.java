@@ -125,9 +125,15 @@ public class QuestionState extends State {
         sb.end();
     }
 
+    @Override
     public void dispose() {
         background.dispose();
         aBtn.dispose();
+        bBtn.dispose();
+        cBtn.dispose();
+        dBtn.dispose();
+        badAnswerSound.dispose();
+        font.dispose();
     }
 
     @Override
@@ -141,44 +147,48 @@ public class QuestionState extends State {
 
         if (aTextureBounds.contains(x, y)) {
             if (question.getCorrectAnswer().equals('a')) {
-                gsm.pop();
                 goodAnswerSound.play();
-            } else {
                 gsm.pop();
+                dispose();
+            } else {
                 badAnswerSound.play();
+                gsm.pop();
                 gsm.set(new GameOverState(gsm, playerX, playerY));
             }
         }
 
         if (bTextureBounds.contains(x, y)) {
             if (question.getCorrectAnswer().equals('b')) {
-                gsm.pop();
                 goodAnswerSound.play();
-            } else {
                 gsm.pop();
+                dispose();
+            } else {
                 badAnswerSound.play();
+                gsm.pop();
                 gsm.set(new GameOverState(gsm, playerX, playerY));
             }
         }
 
         if (cTextureBounds.contains(x, y)) {
             if (question.getCorrectAnswer().equals('c')) {
-                gsm.pop();
                 goodAnswerSound.play();
-            } else {
                 gsm.pop();
+                dispose();
+            } else {
                 badAnswerSound.play();
+                gsm.pop();
                 gsm.set(new GameOverState(gsm, playerX, playerY));
             }
         }
 
         if (dTextureBounds.contains(x, y)) {
             if (question.getCorrectAnswer().equals('d')) {
-                gsm.pop();
                 goodAnswerSound.play();
-            } else {
                 gsm.pop();
+                dispose();
+            } else {
                 badAnswerSound.play();
+                gsm.pop();
                 gsm.set(new GameOverState(gsm, playerX, playerY));
             }
         }
