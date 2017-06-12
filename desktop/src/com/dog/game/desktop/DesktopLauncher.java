@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 480;
 		config.height = 854;
-		config.resizable = true;
+		config.resizable = false;
 		new LwjglApplication(new JumpingDog(), config);
 	}
 }
