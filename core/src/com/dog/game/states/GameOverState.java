@@ -25,7 +25,7 @@ public class GameOverState extends State {
         this.playerY = playerY;
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 112;
+        parameter.size = (int)percentOfWidth(0.233333333);
         font = generator.generateFont(parameter);
         generator.dispose();
     }
@@ -42,10 +42,10 @@ public class GameOverState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, playerX - 112, playerY - 204, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 250);
-        sb.draw(playBtn, playerX, playerY + 350);
-        font.draw(sb, "Game", playerX - 90, playerY + 690);
-        font.draw(sb, "Over", playerX - 90, playerY + 590);
+        sb.draw(background, playerX - percentOfWidth(0.253333), playerY - percentOfHeight(0.262275), Gdx.graphics.getWidth() + percentOfWidth(0.40), Gdx.graphics.getHeight() + percentOfHeight(0.40));
+        sb.draw(playBtn, playerX, playerY + percentOfHeight(0.409836066));
+        font.draw(sb, "Game", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.807962529));
+        font.draw(sb, "Over", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.690866511));
         sb.end();
     }
 
@@ -58,7 +58,7 @@ public class GameOverState extends State {
 
     @Override
     public void tap(float x, float y, int count, int button) {
-        this.textureBounds = new Rectangle(88, 351, playBtn.getWidth(), playBtn.getHeight());
+        this.textureBounds = new Rectangle(percentOfWidth(0.183333333), percentOfHeight(0.411007026), playBtn.getWidth(), playBtn.getHeight());
 
         if (textureBounds.contains(x, y)) {
             gsm.set(new PlayState(gsm));

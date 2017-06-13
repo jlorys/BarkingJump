@@ -19,8 +19,8 @@ public class JumpDogHero extends Rectangle {
         this.jumpSound = jumpSound;
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(texture, x, y, 392.0f, 189.0f);
+    public void draw(SpriteBatch batch, long width, long height) {
+        batch.draw(texture, x, y, width, height);
     }
 
     public void jump() {

@@ -55,7 +55,8 @@ public class PlayState extends State {
         background = new Texture(Gdx.files.internal("bg.png"));
         player = new JumpDogHero(walkFramesLeft[0], Gdx.audio.newSound(Gdx.files.internal("dog.ogg")));
         platformArray = new Array<Platform>();
-        camera = new OrthographicCamera(480, 800);
+        //1 is 100%
+        camera = new OrthographicCamera(percentOfWidth(1), percentOfHeight(1));
 
         for (int i = 0; i <= 9; i++) {
             isQuestionAnswered.set(i, false);
@@ -125,8 +126,8 @@ public class PlayState extends State {
         music.play();
 
         camera.update();
-        camera.position.set(player.x + 200, player.y + 300, 0);
         camera.zoom = 1.3f;
+        camera.position.set(player.x + percentOfWidth(0.416666667), player.y + percentOfHeight(0.351288056), 0);
 
         player.y += player.jumpVelocity * Gdx.graphics.getDeltaTime();
 
@@ -201,33 +202,38 @@ public class PlayState extends State {
 
         //Drawing the tower
         int y = 0;
-        for (int i = 0; i < 20; i++) {
-            int x = -576;
+        for (long i = 0; i < 20; i++) {
+            long x = -percentOfWidth(1.2);
             for (int j = 0; j < 8; j++) {
                 sb.draw(background, x, y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                x += 288;
+                x += (int)percentOfWidth(0.6);
             }
-            y += 512;
+            y += percentOfHeight(0.599531616);
         }
 
-        //Drawing the ground and water
-        int x = -2100;
-        for (int j = 0; j < 19; j++) {
-            if (x < -1200) sb.draw(water, x, -300, 300, 300);
-            else if (x == -1200) sb.draw(stoneWaterLeft, x, -300, 300, 300);
-            else if (j < 15) sb.draw(stone, x, -300, 300, 300);
-            else if (j == 15) sb.draw(stoneWaterRight, x, -300, 300, 300);
-            else sb.draw(water, x, -300, 300, 300);
-            x += 300;
+        //Drawing the ground and water, 4.375 means 437,5%
+        int x = -(int)percentOfWidth(4.375);
+        for (long j = 0; j < 19; j++) {
+            if (x < - percentOfWidth(2.5))
+                sb.draw(water, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
+            else if (x == -percentOfWidth(2.5))
+                sb.draw(stoneWaterLeft, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
+            else if (j < 15)
+                sb.draw(stone, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
+            else if (j == 15)
+                sb.draw(stoneWaterRight, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
+            else
+                sb.draw(water, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
+            x += percentOfWidth(0.625);
 
         }
 
         sb.setProjectionMatrix(camera.combined);
         for (Platform p : platformArray) {
-            p.setWidth(500.0f);
-            p.draw(sb);
+            p.setWidth(percentOfWidth(1.05));
+            p.draw(sb, percentOfWidth(0.5625));
         }
-        player.draw(sb);
+        player.draw(sb, percentOfWidth(0.816666667), percentOfHeight(0.221311475));
 
         sb.end();
     }

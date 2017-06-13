@@ -16,7 +16,7 @@ import java.util.Set;
 /*
 Drawing background and buttons is made by SpriteBatch common for all classes
 tap method use actual 480x854 screen size
- */
+*/
 public class QuestionState extends State {
     Texture background;
     Texture aBtn, bBtn, cBtn, dBtn;
@@ -42,7 +42,7 @@ public class QuestionState extends State {
         this.playerY = playerY;
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 112;
+        parameter.size = (int)percentOfWidth(0.233333333);
         font = generator.generateFont(parameter);
         generator.dispose();
         loadQuestion();
@@ -112,16 +112,36 @@ public class QuestionState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, playerX - 112, playerY - 204, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 250);
-        sb.draw(aBtn, playerX - 90, playerY + 350);
-        sb.draw(bBtn, playerX - 90, playerY - aBtn.getHeight() + 350);
-        sb.draw(cBtn, playerX - 90, playerY - 2 * aBtn.getHeight() + 350);
-        sb.draw(dBtn, playerX - 90, playerY - 3 * aBtn.getHeight() + 350);
-        font.draw(sb, question.getQuestion(), playerX, playerY + 690);
-        font.draw(sb, question.getAnswerA(), playerX + 220, playerY + 490);
-        font.draw(sb, question.getAnswerB(), playerX + 220, playerY + 320);
-        font.draw(sb, question.getAnswerC(), playerX + 220, playerY + 150);
-        font.draw(sb, question.getAnswerD(), playerX + 220, playerY - 20);
+        sb.draw(background,
+                playerX - percentOfWidth(0.233333333),
+                playerY - percentOfHeight(0.274004684),
+                Gdx.graphics.getWidth() + percentOfWidth(0.416666667),
+                Gdx.graphics.getHeight() + percentOfHeight(0.292740047));
+        sb.draw(aBtn,
+                playerX - percentOfWidth(0.1875),
+                playerY + percentOfHeight(0.409836066),
+                percentOfWidth(0.65),
+                percentOfHeight(0.203747073));
+        sb.draw(bBtn,
+                playerX - percentOfWidth(0.1875),
+                playerY - percentOfHeight(0.203747073) + percentOfHeight(0.409836066),
+                percentOfWidth(0.65),
+                percentOfHeight(0.203747073));
+        sb.draw(cBtn,
+                playerX - percentOfWidth(0.1875),
+                playerY - 2 * percentOfHeight(0.203747073) + percentOfHeight(0.409836066),
+                percentOfWidth(0.65),
+                percentOfHeight(0.203747073));
+        sb.draw(dBtn,
+                playerX - percentOfWidth(0.1875),
+                playerY - 3 * percentOfHeight(0.203747073) + percentOfHeight(0.409836066),
+                percentOfWidth(0.65),
+                percentOfHeight(0.203747073));
+        font.draw(sb, question.getQuestion(), playerX, playerY + percentOfHeight(0.807962529));
+        font.draw(sb, question.getAnswerA(), playerX + percentOfWidth(0.458333333), playerY + percentOfHeight(0.573770492));
+        font.draw(sb, question.getAnswerB(), playerX + percentOfWidth(0.458333333), playerY + percentOfHeight(0.37470726));
+        font.draw(sb, question.getAnswerC(), playerX + percentOfWidth(0.458333333), playerY + percentOfHeight(0.175644028));
+        font.draw(sb, question.getAnswerD(), playerX + percentOfWidth(0.458333333), playerY - percentOfHeight(0.023419204));
         sb.end();
     }
 
@@ -140,10 +160,10 @@ public class QuestionState extends State {
     public void tap(float x, float y, int count, int button) {
         //Width and height are 70% of normal size because of used camera.zoom in PlayState class
         //First 2 values are point of actual screen, not SpriteBatch screen (which store all things)
-        this.aTextureBounds = new Rectangle(22, 260, 228, 133);
-        this.bTextureBounds = new Rectangle(22, 404, 228, 133);
-        this.cTextureBounds = new Rectangle(22, 545, 228, 133);
-        this.dTextureBounds = new Rectangle(22, 689, 228, 133);
+        this.aTextureBounds = new Rectangle(percentOfWidth(0.03958333283662796), percentOfHeight(0.3161592483520508), percentOfWidth(0.479166675), percentOfHeight(0.142857134));
+        this.bTextureBounds = new Rectangle(percentOfWidth(0.03958333283662796), percentOfHeight(0.47306790947914124), percentOfWidth(0.479166675), percentOfHeight(0.142857134));
+        this.cTextureBounds = new Rectangle(percentOfWidth(0.03958333283662796), percentOfHeight(0.6299765706062317), percentOfWidth(0.479166675), percentOfHeight(0.142857134));
+        this.dTextureBounds = new Rectangle(percentOfWidth(0.03958333283662796), percentOfHeight(0.7857142686843872), percentOfWidth(0.479166675), percentOfHeight(0.142857134));
 
         if (aTextureBounds.contains(x, y)) {
             if (question.getCorrectAnswer().equals('a')) {

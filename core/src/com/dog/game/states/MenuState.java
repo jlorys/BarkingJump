@@ -27,7 +27,7 @@ public class MenuState extends State {
         logo = new Texture("logo.png");
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontParameter();
-        parameter.size = 32;
+        parameter.size = (int)percentOfWidth(0.066666667);
         font = generator.generateFont(parameter);
         generator.dispose();
     }
@@ -45,10 +45,10 @@ public class MenuState extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        sb.draw(playBtn, 189, 397);
-        sb.draw(logo, 25, 600);
-        font.draw(sb, "Rekord: ", 15, 300);
-        font.draw(sb, record.toString(), 15, 250);
+        sb.draw(playBtn, percentOfWidth(0.39375), percentOfHeight(0.46487), percentOfWidth(0.210416687), percentOfHeight(0.067916906));
+        sb.draw(logo, percentOfWidth(0.0520833), percentOfHeight(0.70257), percentOfWidth(0.891666667), percentOfHeight(0.119437939));
+        font.draw(sb, "Rekord: ", percentOfWidth(0.03125), percentOfHeight(0.35128));
+        font.draw(sb, record.toString(), percentOfWidth(0.03125), percentOfHeight(0.29274));
         sb.end();
     }
 
@@ -62,9 +62,11 @@ public class MenuState extends State {
 
     @Override
     public void tap(float x, float y, int count, int button) {
-        this.textureBounds = new Rectangle(189, 397,
-                playBtn.getWidth(),
-                playBtn.getHeight());
+        this.textureBounds = new Rectangle(percentOfWidth(0.39375), percentOfHeight(0.46487),
+                percentOfWidth(0.210416687),
+                percentOfHeight(0.067916906));
+
+        System.out.println(showPercentOfHeight(x,y));
 
         if (textureBounds.contains(x, y)) {
             gsm.set(new PlayState(gsm));
