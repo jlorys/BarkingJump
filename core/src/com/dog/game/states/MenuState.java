@@ -66,8 +66,6 @@ public class MenuState extends State {
                 percentOfWidth(0.210416687),
                 percentOfHeight(0.067916906));
 
-        System.out.println(showPercentOfHeight(x,y));
-
         if (textureBounds.contains(x, y)) {
             gsm.set(new PlayState(gsm));
         }
