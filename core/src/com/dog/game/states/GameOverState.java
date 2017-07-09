@@ -9,13 +9,13 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class GameOverState extends State {
 
-    Texture background;
-    Texture playBtn;
-    Rectangle textureBounds;
-    Float playerX, playerY;
-    FreeTypeFontGenerator generator;
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    BitmapFont font;
+    private Texture background;
+    private Texture playBtn;
+    private Rectangle textureBounds;
+    private Float playerX, playerY;
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private BitmapFont font;
 
     public GameOverState(GameStateManager gsm, Float playerX, Float playerY) {
         super(gsm);

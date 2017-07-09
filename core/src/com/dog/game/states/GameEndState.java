@@ -10,15 +10,15 @@ import com.dog.game.DatabaseInitialization;
 
 public class GameEndState extends State {
 
-    Texture background;
-    Texture playBtn;
-    Rectangle textureBounds;
-    Float playerX, playerY, time;
-    DatabaseInitialization db = new DatabaseInitialization();
-    Float record = db.getActualRecord();
-    FreeTypeFontGenerator generator;
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    BitmapFont font;
+    private Texture background;
+    private Texture playBtn;
+    private Rectangle textureBounds;
+    private Float playerX, playerY, time;
+    private DatabaseInitialization db = new DatabaseInitialization();
+    private Float record = db.getActualRecord();
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private BitmapFont font;
 
     public GameEndState(GameStateManager gsm, Float playerX, Float playerY, Float time) {
         super(gsm);

@@ -9,10 +9,10 @@ public class JumpDogHero extends Rectangle {
 
     private Sound jumpSound;
     private TextureRegion texture;
-    public boolean canJump = true;
-    public float stateTimeLeft, stateTimeRight;
+    private boolean canJump = true;
+    private float stateTimeLeft, stateTimeRight;
 
-    public float jumpVelocity;
+    private float jumpVelocity;
 
     public JumpDogHero(TextureRegion texture, Sound jumpSound) {
         this.texture = texture;
@@ -33,5 +33,49 @@ public class JumpDogHero extends Rectangle {
 
     public void setTexture(TextureRegion texture) {
         this.texture = texture;
+    }
+
+    public Sound getJumpSound() {
+        return jumpSound;
+    }
+
+    public void setJumpSound(Sound jumpSound) {
+        this.jumpSound = jumpSound;
+    }
+
+    public TextureRegion getTexture() {
+        return texture;
+    }
+
+    public boolean isCanJump() {
+        return canJump;
+    }
+
+    public void setCanJump(boolean canJump) {
+        this.canJump = canJump;
+    }
+
+    public float getStateTimeLeft() {
+        return stateTimeLeft;
+    }
+
+    public void setStateTimeLeft(float stateTimeLeft) {
+        this.stateTimeLeft = stateTimeLeft;
+    }
+
+    public float getStateTimeRight() {
+        return stateTimeRight;
+    }
+
+    public void setStateTimeRight(float stateTimeRight) {
+        this.stateTimeRight = stateTimeRight;
+    }
+
+    public float getJumpVelocity() {
+        return jumpVelocity;
+    }
+
+    public void setJumpVelocity(float jumpVelocity) {
+        this.jumpVelocity = jumpVelocity;
     }
 }

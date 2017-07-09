@@ -18,16 +18,16 @@ Drawing background and buttons is made by SpriteBatch common for all classes
 tap method use actual 480x854 screen size
 */
 public class QuestionState extends State {
-    Texture background;
-    Texture aBtn, bBtn, cBtn, dBtn;
-    Float playerX, playerY;
-    Rectangle aTextureBounds, bTextureBounds, cTextureBounds, dTextureBounds;
-    Sound goodAnswerSound, badAnswerSound;
-    Character questionsGoodAnswer;
-    Question question;
-    FreeTypeFontGenerator generator;
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    BitmapFont font;
+    private Texture background;
+    private Texture aBtn, bBtn, cBtn, dBtn;
+    private Float playerX, playerY;
+    private Rectangle aTextureBounds, bTextureBounds, cTextureBounds, dTextureBounds;
+    private Sound goodAnswerSound, badAnswerSound;
+    private Character questionsGoodAnswer;
+    private Question question;
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private BitmapFont font;
 
     public QuestionState(GameStateManager gsm, Float playerX, Float playerY) {
         super(gsm);

@@ -11,14 +11,14 @@ import com.dog.game.DatabaseInitialization;
 
 public class MenuState extends State {
 
-    Texture background;
-    Texture playBtn, logo;
-    Rectangle textureBounds;
-    DatabaseInitialization db = new DatabaseInitialization();
-    Float record = db.getActualRecord();
-    FreeTypeFontGenerator generator;
-    FreeTypeFontParameter parameter;
-    BitmapFont font;
+    private Texture background;
+    private Texture playBtn, logo;
+    private Rectangle textureBounds;
+    private DatabaseInitialization db = new DatabaseInitialization();
+    private Float record = db.getActualRecord();
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontParameter parameter;
+    private BitmapFont font;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);

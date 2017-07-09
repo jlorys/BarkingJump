@@ -91,7 +91,7 @@ public class PlayState extends State {
     }
 
     private boolean isPlayerOnPlatform(Platform p) {
-        return player.jumpVelocity <= 0 && player.overlaps(p) && !(player.y <= p.y);
+        return player.getJumpVelocity() <= 0 && player.overlaps(p) && !(player.y <= p.y);
     }
 
     @Override
@@ -99,10 +99,10 @@ public class PlayState extends State {
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
             player.x -= 200 * Gdx.graphics.getDeltaTime();
 
-            if (player.canJump) {
-                player.stateTimeLeft += Gdx.graphics.getDeltaTime() * 0.3f; // Accumulate elapsed animation time
+            if (player.isCanJump()) {
+                player.setStateTimeLeft( player.getStateTimeLeft() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationLeft.getKeyFrame(player.stateTimeLeft, true);
+                TextureRegion currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
                 player.setTexture(currentFrame);
             }
 
@@ -110,10 +110,10 @@ public class PlayState extends State {
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
             player.x += 200 * Gdx.graphics.getDeltaTime();
 
-            if (player.canJump) {
-                player.stateTimeRight += Gdx.graphics.getDeltaTime() * 0.3f; // Accumulate elapsed animation time
+            if (player.isCanJump()) {
+                player.setStateTimeRight( player.getStateTimeRight() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationRight.getKeyFrame(player.stateTimeRight, true);
+                TextureRegion currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
                 player.setTexture(currentFrame);
             }
         }
@@ -129,14 +129,14 @@ public class PlayState extends State {
         camera.zoom = 1.3f;
         camera.position.set(player.x + percentOfWidth(0.416666667), player.y + percentOfHeight(0.351288056), 0);
 
-        player.y += player.jumpVelocity * Gdx.graphics.getDeltaTime();
+        player.y += player.getJumpVelocity() * Gdx.graphics.getDeltaTime();
 
         if (player.y > 0) {
-            player.jumpVelocity += gravity;
+            player.setJumpVelocity(player.getJumpVelocity() + gravity);
         } else {
             player.y = 0;
-            player.canJump = true;
-            player.jumpVelocity = 0;
+            player.setCanJump(true);
+            player.setJumpVelocity(0);
         }
 
         //This code makes right limit for dog walking space
@@ -152,8 +152,8 @@ public class PlayState extends State {
         for (Platform p : platformArray) {
 
             if (isPlayerOnPlatform(p)) {
-                player.canJump = true;
-                player.jumpVelocity = 0;
+                player.setCanJump(true);
+                player.setJumpVelocity(0);
                 player.y = p.y + p.height;
 
                 if (p.getY() == 1000 && !isQuestionAnswered.get(0)) {
@@ -264,19 +264,19 @@ public class PlayState extends State {
 
             player.x += 200 * Gdx.graphics.getDeltaTime();
 
-            if (player.canJump) {
-                player.stateTimeRight += Gdx.graphics.getDeltaTime() * 0.3f; // Accumulate elapsed animation time
+            if (player.isCanJump()) {
+                player.setStateTimeRight( player.getStateTimeRight() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationRight.getKeyFrame(player.stateTimeRight, true);
+                TextureRegion currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
                 player.setTexture(currentFrame);
             }
         } else {
             player.x -= 200 * Gdx.graphics.getDeltaTime();
 
-            if (player.canJump) {
-                player.stateTimeLeft += Gdx.graphics.getDeltaTime() * 0.3f; // Accumulate elapsed animation time
+            if (player.isCanJump()) {
+                player.setStateTimeLeft( player.getStateTimeLeft() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationLeft.getKeyFrame(player.stateTimeLeft, true);
+                TextureRegion currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
                 player.setTexture(currentFrame);
             }
         }

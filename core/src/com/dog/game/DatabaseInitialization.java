@@ -9,9 +9,9 @@ import com.badlogic.gdx.sql.SQLiteGdxException;
 public class DatabaseInitialization {
     Database dbHandler;
 
-    public static final String TABLE_RECORD = "record";
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_RECORD_TIME = "record_time";
+    private static final String TABLE_RECORD = "record";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_RECORD_TIME = "record_time";
 
     private static final String DATABASE_NAME = "record.db";
     private static final int DATABASE_VERSION = 1;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Stack;
 
 public class GameStateManager {
-    Stack<State> states;
+    private Stack<State> states;
 
     public GameStateManager() {
         states = new Stack<State>();
