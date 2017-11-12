@@ -69,7 +69,7 @@ public class QuestionState extends State {
                 else if(whichArithmeticOperator == '*'){answers.add(randomNumber1 * randomNumber2);}
                 else if(whichArithmeticOperator == '/'){answers.add(randomNumber1 / randomNumber2);}
             }else{
-                Integer next = (randomNumber1 * randomNumber2) + (r.nextInt(20) - 10);
+                Integer next = answers.iterator().next() + (r.nextInt(20) - 10);
                 answers.add(next);
             }
         }
