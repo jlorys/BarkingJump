@@ -24,6 +24,7 @@ public class QuestionState extends State {
     private Rectangle aTextureBounds, bTextureBounds, cTextureBounds, dTextureBounds;
     private Sound goodAnswerSound, badAnswerSound;
     private Character questionsGoodAnswer;
+    private Character whichArithmeticOperator;
     private Question question;
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
@@ -52,50 +53,55 @@ public class QuestionState extends State {
         Random r = new Random();
         String abcd = "abcd";
         questionsGoodAnswer = abcd.charAt(r.nextInt(abcd.length()));
+        String addSubtractMultiplyDivide = "+-*/";
+        whichArithmeticOperator = addSubtractMultiplyDivide.charAt(r.nextInt(abcd.length()));
 
-        Integer randomNumber1 = r.nextInt(15);
-        Integer randomNumber2 = r.nextInt(15);
+        Integer randomNumber1 = r.nextInt(15)-1;
+        Integer randomNumber2 = r.nextInt(15)-1;
 
         //Set is collection that store only unique values
-        Set<Integer> badAnswers = new LinkedHashSet<Integer>();
+        Set<Integer> answers = new LinkedHashSet<Integer>();
         //So this loop works until all values will be set, and all will be unique
-        while (badAnswers.size() < 4) {
-            if(badAnswers.size() == 0){
-                badAnswers.add(randomNumber1 * randomNumber2);
+        while (answers.size() < 4) {
+            if(answers.size() == 0){
+                if(whichArithmeticOperator == '+'){answers.add(randomNumber1 + randomNumber2);}
+                else if(whichArithmeticOperator == '-'){answers.add(randomNumber1 - randomNumber2);}
+                else if(whichArithmeticOperator == '*'){answers.add(randomNumber1 * randomNumber2);}
+                else if(whichArithmeticOperator == '/'){answers.add(randomNumber1 / randomNumber2);}
             }else{
                 Integer next = (randomNumber1 * randomNumber2) + (r.nextInt(20) - 10);
-                badAnswers.add(next);
+                answers.add(next);
             }
         }
 
         //-4 index is first number, this is correct answer
         if (questionsGoodAnswer == 'a') {
-            question = new Question(randomNumber1 + " * " + randomNumber2,
-                    "" + badAnswers.toArray()[badAnswers.size() - 4],
-                    "" + badAnswers.toArray()[badAnswers.size() - 1],
-                    "" + badAnswers.toArray()[badAnswers.size() - 2],
-                    "" + badAnswers.toArray()[badAnswers.size() - 3],
+            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+                    "" + answers.toArray()[answers.size() - 4],
+                    "" + answers.toArray()[answers.size() - 1],
+                    "" + answers.toArray()[answers.size() - 2],
+                    "" + answers.toArray()[answers.size() - 3],
                     'a');
         } else if (questionsGoodAnswer == 'b') {
-            question = new Question(randomNumber1 + " * " + randomNumber2,
-                    "" + badAnswers.toArray()[badAnswers.size() - 1],
-                    "" + badAnswers.toArray()[badAnswers.size() - 4],
-                    "" + badAnswers.toArray()[badAnswers.size() - 2],
-                    "" + badAnswers.toArray()[badAnswers.size() - 3],
+            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+                    "" + answers.toArray()[answers.size() - 1],
+                    "" + answers.toArray()[answers.size() - 4],
+                    "" + answers.toArray()[answers.size() - 2],
+                    "" + answers.toArray()[answers.size() - 3],
                     'b');
         } else if (questionsGoodAnswer == 'c') {
-            question = new Question(randomNumber1 + " * " + randomNumber2,
-                    "" + badAnswers.toArray()[badAnswers.size() - 1],
-                    "" + badAnswers.toArray()[badAnswers.size() - 2],
-                    "" + badAnswers.toArray()[badAnswers.size() - 4],
-                    "" + badAnswers.toArray()[badAnswers.size() - 3],
+            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+                    "" + answers.toArray()[answers.size() - 1],
+                    "" + answers.toArray()[answers.size() - 2],
+                    "" + answers.toArray()[answers.size() - 4],
+                    "" + answers.toArray()[answers.size() - 3],
                     'c');
         } else {
-            question = new Question(randomNumber1 + " * " + randomNumber2,
-                    "" + badAnswers.toArray()[badAnswers.size() - 1],
-                    "" + badAnswers.toArray()[badAnswers.size() - 2],
-                    "" + badAnswers.toArray()[badAnswers.size() - 3],
-                    "" + badAnswers.toArray()[badAnswers.size() - 4],
+            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+                    "" + answers.toArray()[answers.size() - 1],
+                    "" + answers.toArray()[answers.size() - 2],
+                    "" + answers.toArray()[answers.size() - 3],
+                    "" + answers.toArray()[answers.size() - 4],
                     'd');
         }
     }
