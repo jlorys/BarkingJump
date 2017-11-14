@@ -199,19 +199,28 @@ public class PlayState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        sb.setProjectionMatrix(camera.combined);
 
-        //Drawing the tower
-        int y = 0;
-        for (long i = 0; i < 20; i++) {
-            long x = -percentOfWidth(1.2);
-            for (int j = 0; j < 8; j++) {
-                sb.draw(background, x, y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                x += (int)percentOfWidth(0.6);
-            }
-            y += percentOfHeight(0.599531616);
+        drawTheTower(sb);
+        drawGroundAndWater(sb);
+        drawPlatforms(sb);
+        drawDogPlayer(sb);
+
+        sb.end();
+    }
+
+    private void drawDogPlayer(SpriteBatch sb) {
+        player.draw(sb, percentOfWidth(0.816666667), percentOfHeight(0.221311475));
+    }
+
+    private void drawPlatforms(SpriteBatch sb) {
+        for (Platform p : platformArray) {
+            p.setWidth(percentOfWidth(1.05));
+            p.draw(sb, percentOfWidth(0.5625));
         }
+    }
 
-        //Drawing the ground and water, 4.375 means 437,5%
+    private void drawGroundAndWater(SpriteBatch sb) {
         int x = -(int)percentOfWidth(4.375);
         for (long j = 0; j < 19; j++) {
             if (x < - percentOfWidth(2.5))
@@ -227,15 +236,18 @@ public class PlayState extends State {
             x += percentOfWidth(0.625);
 
         }
+    }
 
-        sb.setProjectionMatrix(camera.combined);
-        for (Platform p : platformArray) {
-            p.setWidth(percentOfWidth(1.05));
-            p.draw(sb, percentOfWidth(0.5625));
+    private void drawTheTower(SpriteBatch sb) {
+        int y = 0;
+        for (long i = 0; i < 20; i++) {
+            long x = -percentOfWidth(1.2);
+            for (int j = 0; j < 8; j++) {
+                sb.draw(background, x, y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                x += (int)percentOfWidth(0.6);
+            }
+            y += percentOfHeight(0.599531616);
         }
-        player.draw(sb, percentOfWidth(0.816666667), percentOfHeight(0.221311475));
-
-        sb.end();
     }
 
     @Override
