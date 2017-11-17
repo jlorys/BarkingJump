@@ -35,6 +35,8 @@ public class JumpDogHero extends Rectangle {
         this.texture = texture;
     }
 
+    public TextureRegion getTexture() {return texture;}
+
     public boolean isCanJump() {
         return canJump;
     }

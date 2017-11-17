@@ -19,18 +19,18 @@ import java.util.List;
 
 public class PlayState extends State {
 
+    private static final int FRAME_COLS = 1, FRAME_ROWS = 16;
+    private static final float gravity = -20;
     private TextureRegion[] walkFramesLeft, walkFramesRight;
     private Animation<TextureRegion> walkAnimationLeft, walkAnimationRight;
     private Music music;
-    private Texture playerTextureWalkLeft, playerTextureWalkRight, platformTexture, platformQuestionTexture, background, stone, stoneWaterRight, stoneWaterLeft, water;
+    private Texture playerTextureWalkLeft, playerTextureJumpLeft, playerTextureWalkRight, playerTextureJumpRight, platformTexture, platformQuestionTexture, background, stone, stoneWaterRight, stoneWaterLeft, water;
     private JumpDogHero player;
     private Array<Platform> platformArray;
     private OrthographicCamera camera;
-    private static final int FRAME_COLS = 1, FRAME_ROWS = 16;
-    private TimeUtils clock;
-    private long start = clock.millis();
-
-    private static final float gravity = -20;
+    private long start = TimeUtils.millis();
+    private TextureRegion currentFrame;
+    private Texture currentJumpTexture;
     private List<Boolean> isQuestionAnswered = Arrays.asList(new Boolean[10]);
 
     public PlayState(GameStateManager gsm) {
@@ -44,7 +44,9 @@ public class PlayState extends State {
         stoneWaterLeft = new Texture(Gdx.files.internal("stonewaterleft.png"));
         water = new Texture(Gdx.files.internal("water.png"));
         playerTextureWalkLeft = new Texture(Gdx.files.internal("dogleft1.png"));
+        playerTextureJumpLeft = new Texture(Gdx.files.internal("dog jump left.png"));
         playerTextureWalkRight = new Texture(Gdx.files.internal("dogright1.png"));
+        playerTextureJumpRight = new Texture(Gdx.files.internal("dog jump right.png"));
         walkFramesLeft = DivideToRegion(playerTextureWalkLeft);
         walkFramesRight = DivideToRegion(playerTextureWalkRight);
         walkAnimationLeft = new Animation<TextureRegion>(0.025f, walkFramesLeft);
@@ -54,6 +56,8 @@ public class PlayState extends State {
         platformQuestionTexture = new Texture(Gdx.files.internal("questionplatform.png"));
         background = new Texture(Gdx.files.internal("bg.png"));
         player = new JumpDogHero(walkFramesLeft[0], Gdx.audio.newSound(Gdx.files.internal("dog.ogg")));
+        currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
+        currentJumpTexture = playerTextureJumpLeft;
         platformArray = new Array<Platform>();
         //1 is 100%
         camera = new OrthographicCamera(percentOfWidth(1), percentOfHeight(1));
@@ -98,23 +102,29 @@ public class PlayState extends State {
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
             player.x -= 200 * Gdx.graphics.getDeltaTime();
+            currentJumpTexture = playerTextureJumpLeft;
 
             if (player.isCanJump()) {
-                player.setStateTimeLeft( player.getStateTimeLeft() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
+                player.setStateTimeLeft(player.getStateTimeLeft() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
+                currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
                 player.setTexture(currentFrame);
+            } else {
+                player.setTexture(new TextureRegion(currentJumpTexture));
             }
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
             player.x += 200 * Gdx.graphics.getDeltaTime();
+            currentJumpTexture = playerTextureJumpRight;
 
             if (player.isCanJump()) {
-                player.setStateTimeRight( player.getStateTimeRight() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
+                player.setStateTimeRight(player.getStateTimeRight() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
+                currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
                 player.setTexture(currentFrame);
+            } else {
+                player.setTexture(new TextureRegion(currentJumpTexture));
             }
         }
     }
@@ -128,6 +138,12 @@ public class PlayState extends State {
         camera.update();
         camera.zoom = 1.3f;
         camera.position.set(player.x + percentOfWidth(0.416666667), player.y + percentOfHeight(0.351288056), 0);
+
+        if (player.isCanJump()) {
+            player.setTexture(currentFrame);
+        } else {
+            player.setTexture(new TextureRegion(currentJumpTexture));
+        }
 
         player.y += player.getJumpVelocity() * Gdx.graphics.getDeltaTime();
 
@@ -187,7 +203,7 @@ public class PlayState extends State {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(9, true);
                 } else if (p.getY() == 10000 && isQuestionAnswered.get(9)) {
-                    long stop = clock.millis();
+                    long stop = TimeUtils.millis();
                     float time = (stop - start);
                     gsm.set(new GameEndState(gsm, player.x, player.y, time));
                     dispose();
@@ -221,9 +237,9 @@ public class PlayState extends State {
     }
 
     private void drawGroundAndWater(SpriteBatch sb) {
-        int x = -(int)percentOfWidth(4.375);
+        int x = -(int) percentOfWidth(4.375);
         for (long j = 0; j < 19; j++) {
-            if (x < - percentOfWidth(2.5))
+            if (x < -percentOfWidth(2.5))
                 sb.draw(water, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
             else if (x == -percentOfWidth(2.5))
                 sb.draw(stoneWaterLeft, x, -percentOfHeight(0.351288056), percentOfWidth(0.625), percentOfHeight(0.351288056));
@@ -244,7 +260,7 @@ public class PlayState extends State {
             long x = -percentOfWidth(1.2);
             for (int j = 0; j < 8; j++) {
                 sb.draw(background, x, y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                x += (int)percentOfWidth(0.6);
+                x += (int) percentOfWidth(0.6);
             }
             y += percentOfHeight(0.599531616);
         }
@@ -254,7 +270,9 @@ public class PlayState extends State {
     public void dispose() {
         music.dispose();
         playerTextureWalkLeft.dispose();
+        playerTextureJumpLeft.dispose();
         playerTextureWalkRight.dispose();
+        playerTextureJumpRight.dispose();
         platformTexture.dispose();
         platformQuestionTexture.dispose();
         background.dispose();
@@ -273,23 +291,28 @@ public class PlayState extends State {
     public void pan(float x, float y, float deltaX, float deltaY) {
         float centerX = 200.0f;
         if (centerX < x) {
-
             player.x += 200 * Gdx.graphics.getDeltaTime();
+            currentJumpTexture = playerTextureJumpRight;
 
             if (player.isCanJump()) {
-                player.setStateTimeRight( player.getStateTimeRight() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
+                player.setStateTimeRight(player.getStateTimeRight() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
+                currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
                 player.setTexture(currentFrame);
+            } else {
+                player.setTexture(new TextureRegion(currentJumpTexture));
             }
         } else {
             player.x -= 200 * Gdx.graphics.getDeltaTime();
+            currentJumpTexture = playerTextureJumpLeft;
 
             if (player.isCanJump()) {
-                player.setStateTimeLeft( player.getStateTimeLeft() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
+                player.setStateTimeLeft(player.getStateTimeLeft() + Gdx.graphics.getDeltaTime() * 0.3f); // Accumulate elapsed animation time
                 // Get current frame of animation for the current stateTimeLeft
-                TextureRegion currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
+                currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
                 player.setTexture(currentFrame);
+            } else {
+                player.setTexture(new TextureRegion(currentJumpTexture));
             }
         }
     }
