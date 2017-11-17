@@ -280,6 +280,8 @@ public class PlayState extends State {
         stoneWaterRight.dispose();
         stoneWaterLeft.dispose();
         water.dispose();
+        currentFrame.getTexture().dispose();
+        currentJumpTexture.dispose();
     }
 
     @Override
