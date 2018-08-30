@@ -20,7 +20,7 @@ https://www.youtube.com/watch?v=Nd6u50-AeoI
 
 ![menu](https://user-images.githubusercontent.com/24614511/27331275-12588d2a-55bd-11e7-894c-98af39ae53eb.jpg)<br />
 
-In main menu I put name of the game, play button and actual record in seconds.
+In main menu I have put name of the game, play button and actual record measured in seconds.
 
 ![game](https://user-images.githubusercontent.com/24614511/27331283-1e224bfa-55bd-11e7-96f1-3117f81d0eb3.jpg)<br />
 ![leftside](https://user-images.githubusercontent.com/24614511/27331292-20fdccd2-55bd-11e7-9626-b112f0126d09.jpg)<br />
@@ -31,7 +31,7 @@ On the right and left side of tower is river which dog avoid.
 ![gameplay](https://user-images.githubusercontent.com/24614511/27331297-260f365c-55bd-11e7-8fc2-0f32e4b18c56.jpg)<br />
 ![question](https://user-images.githubusercontent.com/24614511/27331302-28e17e26-55bd-11e7-8ce3-35997c4bcc97.jpg)<br />
 
-When dog reach platform with question marks, question will appear and if the answer will be bad - game over.
+When the dog reach platform with question marks, question will appear and if the answer will be bad - game over.
 
 ![gameover](https://user-images.githubusercontent.com/24614511/27331309-2e58eab0-55bd-11e7-9751-da83c9e7f5b0.jpg)<br />
 
