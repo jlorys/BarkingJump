@@ -13,7 +13,7 @@ public class Platform extends Rectangle {
         this.width = texture.getWidth();
     }
 
-    public void draw(SpriteBatch batch, long width) {
-        batch.draw(texture, x + width, y);
+    public void draw(SpriteBatch batch, long width, long height) {
+        batch.draw(texture, x + width, y, width, height);
     }
 }

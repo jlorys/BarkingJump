@@ -24,7 +24,8 @@ public class PlayState extends State {
     private TextureRegion[] walkFramesLeft, walkFramesRight;
     private Animation<TextureRegion> walkAnimationLeft, walkAnimationRight;
     private Music music;
-    private Texture playerTextureWalkLeft, playerTextureJumpLeft, playerTextureWalkRight, playerTextureJumpRight, platformTexture, platformQuestionTexture, background, stone, stoneWaterRight, stoneWaterLeft, water;
+    private Texture playerTextureWalkLeft, playerTextureJumpLeft, playerTextureWalkRight, playerTextureJumpRight,
+            platformTexture, platformQuestionTexture, background, stone, stoneWaterRight, stoneWaterLeft, water;
     private JumpDogHero player;
     private Array<Platform> platformArray;
     private OrthographicCamera camera;
@@ -101,7 +102,7 @@ public class PlayState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
-            player.x -= 200 * Gdx.graphics.getDeltaTime();
+            player.x -= 700 * Gdx.graphics.getDeltaTime();
             currentJumpTexture = playerTextureJumpLeft;
 
             if (player.isCanJump()) {
@@ -115,7 +116,7 @@ public class PlayState extends State {
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
-            player.x += 200 * Gdx.graphics.getDeltaTime();
+            player.x += 700 * Gdx.graphics.getDeltaTime();
             currentJumpTexture = playerTextureJumpRight;
 
             if (player.isCanJump()) {
@@ -156,13 +157,13 @@ public class PlayState extends State {
         }
 
         //This code makes right limit for dog walking space
-        if (player.x > 2100) {
-            player.x = 2099;
+        if (player.x > percentOfWidth(4.4)) {
+            player.x = percentOfWidth(4.4);
         }
 
         //This code makes left limit for dog walking space
-        if (player.x < -972) {
-            player.x = -971;
+        if (player.x < percentOfWidth(-2.1)) {
+            player.x = percentOfWidth(-2.1);
         }
 
         for (Platform p : platformArray) {
@@ -232,7 +233,7 @@ public class PlayState extends State {
     private void drawPlatforms(SpriteBatch sb) {
         for (Platform p : platformArray) {
             p.setWidth(percentOfWidth(1.05));
-            p.draw(sb, percentOfWidth(0.5625));
+            p.draw(sb, percentOfWidth(0.5625), percentOfHeight(0.05625));
         }
     }
 
