@@ -1,7 +1,7 @@
-# JumpingDog
+# BarkingJump
 ## Synopsis
 
-JumpingDog is Android and Desktop game, for people who need to learn fast multiplying numbers from 0 to 14.
+BarkingJump is Android and Desktop game, for people who need to learn fast multiplying numbers from 0 to 14.
 
 ## Used technologies and materials
 
@@ -17,8 +17,7 @@ Gdx-freetype is library for using own fonts in LibGDX
 https://www.youtube.com/watch?v=Nd6u50-AeoI
 
 ## Visual presentation
-
-![menu](https://user-images.githubusercontent.com/24614511/27331275-12588d2a-55bd-11e7-894c-98af39ae53eb.jpg)<br />
+![menu](https://user-images.githubusercontent.com/24614511/68042694-ced6e680-fcd3-11e9-9722-212dd167c19e.png)<br />
 
 In main menu I have put name of the game, play button and actual record measured in seconds.
 

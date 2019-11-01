@@ -102,7 +102,7 @@ public class PlayState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
-            player.x -= 700 * Gdx.graphics.getDeltaTime();
+            player.x -= 400 * Gdx.graphics.getDeltaTime();
             currentJumpTexture = playerTextureJumpLeft;
 
             if (player.isCanJump()) {
@@ -116,7 +116,7 @@ public class PlayState extends State {
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
-            player.x += 700 * Gdx.graphics.getDeltaTime();
+            player.x += 400 * Gdx.graphics.getDeltaTime();
             currentJumpTexture = playerTextureJumpRight;
 
             if (player.isCanJump()) {
