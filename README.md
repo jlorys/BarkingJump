@@ -17,7 +17,7 @@ Gdx-freetype is library for using own fonts in LibGDX
 https://www.youtube.com/watch?v=Nd6u50-AeoI
 
 ## Visual presentation
-![menu](https://user-images.githubusercontent.com/24614511/68042694-ced6e680-fcd3-11e9-9722-212dd167c19e.png)<br />
+![menu](https://user-images.githubusercontent.com/24614511/68042954-75bb8280-fcd4-11e9-8733-5d62a88a9386.png)<br />
 
 In main menu I have put name of the game, play button and actual record measured in seconds.
 
