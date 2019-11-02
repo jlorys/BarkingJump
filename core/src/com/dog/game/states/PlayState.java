@@ -21,6 +21,9 @@ public class PlayState extends State {
 
     private static final int FRAME_COLS = 1, FRAME_ROWS = 16;
     private final float gravity = -percentOfHeight(0.02);
+    private final float playerVelocity = percentOfHeight(1.0);
+    private final float platformsDistance = percentOfHeight(0.3);
+    private final float platformsHeight = percentOfHeight(0.05625);
     private TextureRegion[] walkFramesLeft, walkFramesRight;
     private Animation<TextureRegion> walkAnimationLeft, walkAnimationRight;
     private Music music;
@@ -33,9 +36,6 @@ public class PlayState extends State {
     private TextureRegion currentFrame;
     private Texture currentJumpTexture;
     private List<Boolean> isQuestionAnswered = Arrays.asList(new Boolean[10]);
-    private final float playerVelocity = percentOfHeight(1.0);
-    private final float platformsDistance = percentOfHeight(0.3);
-    private final float platformsHeight = percentOfHeight(0.05625);
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -176,11 +176,11 @@ public class PlayState extends State {
                 player.setJumpVelocity(0);
                 player.y = p.y + p.height;
 
-                for(int i = 5; i<=50; i+=5){
-                    if (p.getY() == platformsDistance*i && !isQuestionAnswered.get(i/5)) {
+                for (int i = 5; i <= 50; i += 5) {
+                    if (p.getY() == platformsDistance * i && !isQuestionAnswered.get(i / 5)) {
                         gsm.push(new QuestionState(gsm, player.x, player.y));
-                        isQuestionAnswered.set(i/5, true);
-                    } else if (p.getY() == platformsDistance*50 && isQuestionAnswered.get(9)) {
+                        isQuestionAnswered.set(i / 5, true);
+                    } else if (p.getY() == platformsDistance * 50 && isQuestionAnswered.get(9)) {
                         long stop = TimeUtils.millis();
                         float time = (stop - start);
                         gsm.set(new GameEndState(gsm, player.x, player.y, time));
