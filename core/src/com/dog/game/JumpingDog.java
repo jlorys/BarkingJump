@@ -11,16 +11,15 @@ import com.dog.game.states.MenuState;
 
 public class JumpingDog extends ApplicationAdapter implements GestureDetector.GestureListener {
 
-
     private SpriteBatch spriteBatch;
     private GameStateManager gameStateManager;
-    private GestureDetector gestureDetector;
 
     @Override
     public void create () {
         spriteBatch = new SpriteBatch();
         gameStateManager = new GameStateManager();
         gameStateManager.push(new MenuState(gameStateManager));
+        GestureDetector gestureDetector;
         gestureDetector = new GestureDetector(this);
         Gdx.input.setInputProcessor(gestureDetector);
 

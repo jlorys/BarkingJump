@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public abstract class State {
-    protected GameStateManager gsm;
-    protected OrthographicCamera cam;
+abstract class State {
+    GameStateManager gsm;
+    OrthographicCamera cam;
 
-    protected State(GameStateManager gsm) {
+    State(GameStateManager gsm) {
         this.gsm = gsm;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 240, 400);
@@ -26,12 +26,12 @@ public abstract class State {
 
     public abstract void pan(float x, float y, float deltaX, float deltaY);
 
-    public long percentOfWidth(double percent){
+    long percentOfWidth(double percent){
         double screenValue = percent * Gdx.graphics.getWidth();
         return Math.round(screenValue);
     }
 
-    public long percentOfHeight(double percent){
+    long percentOfHeight(double percent){
         double screenValue = percent * Gdx.graphics.getHeight();
         return Math.round(screenValue);
     }

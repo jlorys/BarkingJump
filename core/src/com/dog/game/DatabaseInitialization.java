@@ -7,7 +7,7 @@ import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
 
 public class DatabaseInitialization {
-    Database dbHandler;
+    private Database dbHandler;
 
     private static final String TABLE_RECORD = "record";
     private static final String COLUMN_ID = "id";

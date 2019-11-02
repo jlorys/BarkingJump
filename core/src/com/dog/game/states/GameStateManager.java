@@ -14,11 +14,11 @@ public class GameStateManager {
         states.push(state);
     }
 
-    public void pop() {
+    void pop() {
         states.pop();
     }
 
-    public void set(State state) {
+    void set(State state) {
         states.get(0).dispose();
         states.pop();
         states.push(state);

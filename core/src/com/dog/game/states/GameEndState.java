@@ -8,20 +8,19 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.dog.game.DatabaseInitialization;
 
-public class GameEndState extends State {
+class GameEndState extends State {
 
     private Texture background;
     private Texture playBtn;
-    private Rectangle textureBounds;
     private Float playerX, playerY, time;
     private DatabaseInitialization db = new DatabaseInitialization();
     private Float record = db.getActualRecord();
-    private FreeTypeFontGenerator generator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font;
 
-    public GameEndState(GameStateManager gsm, Float playerX, Float playerY, Float time) {
+    GameEndState(GameStateManager gsm, Float playerX, Float playerY, Float time) {
         super(gsm);
+        FreeTypeFontGenerator generator;
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter;
         background = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
         this.playerX = playerX;
@@ -68,7 +67,8 @@ public class GameEndState extends State {
 
     @Override
     public void tap(float x, float y, int count, int button) {
-        this.textureBounds = new Rectangle(percentOfWidth(0.183333333), percentOfHeight(0.411007026), playBtn.getWidth(), playBtn.getHeight());
+        Rectangle textureBounds;
+        textureBounds = new Rectangle(percentOfWidth(0.183333333), percentOfHeight(0.411007026), playBtn.getWidth(), playBtn.getHeight());
 
         if (textureBounds.contains(x, y)) {
             gsm.set(new PlayState(gsm));
