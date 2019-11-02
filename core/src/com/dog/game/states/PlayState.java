@@ -20,7 +20,7 @@ import java.util.List;
 public class PlayState extends State {
 
     private static final int FRAME_COLS = 1, FRAME_ROWS = 16;
-    private static final float gravity = -20;
+    private final float gravity = -percentOfHeight(0.02);
     private TextureRegion[] walkFramesLeft, walkFramesRight;
     private Animation<TextureRegion> walkAnimationLeft, walkAnimationRight;
     private Music music;
@@ -33,6 +33,9 @@ public class PlayState extends State {
     private TextureRegion currentFrame;
     private Texture currentJumpTexture;
     private List<Boolean> isQuestionAnswered = Arrays.asList(new Boolean[10]);
+    private final float playerVelocity = percentOfHeight(1.0);
+    private final float platformsDistance = percentOfHeight(0.3);
+    private final float platformsHeight = percentOfHeight(0.05625);
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -68,12 +71,12 @@ public class PlayState extends State {
         }
 
         for (int i = 1; i <= 50; i++) {
-            Platform p = new Platform(platformTexture);
+            Platform p = new Platform(platformTexture, platformsHeight);
             p.x = MathUtils.random(percentOfWidth(1.25));
-            p.y = 200 * i;
-            Platform pQuestion = new Platform(platformQuestionTexture);
+            p.y = platformsDistance * i;
+            Platform pQuestion = new Platform(platformQuestionTexture, platformsHeight);
             pQuestion.x = MathUtils.random(percentOfWidth(1.25));
-            pQuestion.y = 200 * i;
+            pQuestion.y = platformsDistance * i;
 
             if (i % 5 == 0) platformArray.add(pQuestion);
             else platformArray.add(p);
@@ -173,37 +176,37 @@ public class PlayState extends State {
                 player.setJumpVelocity(0);
                 player.y = p.y + p.height;
 
-                if (p.getY() == 1000 && !isQuestionAnswered.get(0)) {
+                if (p.getY() == platformsDistance*5 && !isQuestionAnswered.get(0)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(0, true);
-                } else if (p.getY() == 2000 && !isQuestionAnswered.get(1)) {
+                } else if (p.getY() == platformsDistance*10 && !isQuestionAnswered.get(1)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(1, true);
-                } else if (p.getY() == 3000 && !isQuestionAnswered.get(2)) {
+                } else if (p.getY() == platformsDistance*15 && !isQuestionAnswered.get(2)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(2, true);
-                } else if (p.getY() == 4000 && !isQuestionAnswered.get(3)) {
+                } else if (p.getY() == platformsDistance*20 && !isQuestionAnswered.get(3)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(3, true);
-                } else if (p.getY() == 5000 && !isQuestionAnswered.get(4)) {
+                } else if (p.getY() == platformsDistance*25 && !isQuestionAnswered.get(4)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(4, true);
-                } else if (p.getY() == 6000 && !isQuestionAnswered.get(5)) {
+                } else if (p.getY() == platformsDistance*30 && !isQuestionAnswered.get(5)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(5, true);
-                } else if (p.getY() == 7000 && !isQuestionAnswered.get(6)) {
+                } else if (p.getY() == platformsDistance*35 && !isQuestionAnswered.get(6)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(6, true);
-                } else if (p.getY() == 8000 && !isQuestionAnswered.get(7)) {
+                } else if (p.getY() == platformsDistance*40 && !isQuestionAnswered.get(7)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(7, true);
-                } else if (p.getY() == 9000 && !isQuestionAnswered.get(8)) {
+                } else if (p.getY() == platformsDistance*45 && !isQuestionAnswered.get(8)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(8, true);
-                } else if (p.getY() == 10000 && !isQuestionAnswered.get(9)) {
+                } else if (p.getY() == platformsDistance*50 && !isQuestionAnswered.get(9)) {
                     gsm.push(new QuestionState(gsm, player.x, player.y));
                     isQuestionAnswered.set(9, true);
-                } else if (p.getY() == 10000 && isQuestionAnswered.get(9)) {
+                } else if (p.getY() == platformsDistance*50 && isQuestionAnswered.get(9)) {
                     long stop = TimeUtils.millis();
                     float time = (stop - start);
                     gsm.set(new GameEndState(gsm, player.x, player.y, time));
@@ -257,7 +260,7 @@ public class PlayState extends State {
 
     private void drawTheTower(SpriteBatch sb) {
         int y = 0;
-        for (long i = 0; i < 20; i++) {
+        for (long i = 0; i < 35; i++) {
             long x = -percentOfWidth(1.2);
             for (int j = 0; j < 8; j++) {
                 sb.draw(background, x, y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -287,7 +290,7 @@ public class PlayState extends State {
 
     @Override
     public void tap(float x, float y, int count, int button) {
-        player.jump();
+        player.jump(playerVelocity);
     }
 
     @Override

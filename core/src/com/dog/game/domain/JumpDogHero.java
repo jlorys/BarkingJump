@@ -23,9 +23,9 @@ public class JumpDogHero extends Rectangle {
         batch.draw(texture, x, y, width, height);
     }
 
-    public void jump() {
+    public void jump(float playerVelocity) {
         if (canJump && jumpVelocity >= -100) {
-            jumpVelocity += 800;
+            jumpVelocity += playerVelocity;
             canJump = false;
             jumpSound.play(0.25f);
         }

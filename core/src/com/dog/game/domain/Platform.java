@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 public class Platform extends Rectangle {
     private Texture texture;
 
-    public Platform(Texture texture) {
+    public Platform(Texture texture, float height) {
         this.texture = texture;
-        this.height = texture.getHeight();
+        this.height = height;
         this.width = texture.getWidth();
     }
 
