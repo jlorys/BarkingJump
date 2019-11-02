@@ -176,41 +176,16 @@ public class PlayState extends State {
                 player.setJumpVelocity(0);
                 player.y = p.y + p.height;
 
-                if (p.getY() == platformsDistance*5 && !isQuestionAnswered.get(0)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(0, true);
-                } else if (p.getY() == platformsDistance*10 && !isQuestionAnswered.get(1)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(1, true);
-                } else if (p.getY() == platformsDistance*15 && !isQuestionAnswered.get(2)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(2, true);
-                } else if (p.getY() == platformsDistance*20 && !isQuestionAnswered.get(3)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(3, true);
-                } else if (p.getY() == platformsDistance*25 && !isQuestionAnswered.get(4)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(4, true);
-                } else if (p.getY() == platformsDistance*30 && !isQuestionAnswered.get(5)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(5, true);
-                } else if (p.getY() == platformsDistance*35 && !isQuestionAnswered.get(6)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(6, true);
-                } else if (p.getY() == platformsDistance*40 && !isQuestionAnswered.get(7)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(7, true);
-                } else if (p.getY() == platformsDistance*45 && !isQuestionAnswered.get(8)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(8, true);
-                } else if (p.getY() == platformsDistance*50 && !isQuestionAnswered.get(9)) {
-                    gsm.push(new QuestionState(gsm, player.x, player.y));
-                    isQuestionAnswered.set(9, true);
-                } else if (p.getY() == platformsDistance*50 && isQuestionAnswered.get(9)) {
-                    long stop = TimeUtils.millis();
-                    float time = (stop - start);
-                    gsm.set(new GameEndState(gsm, player.x, player.y, time));
-                    dispose();
+                for(int i = 5; i<=50; i+=5){
+                    if (p.getY() == platformsDistance*i && !isQuestionAnswered.get(i/5)) {
+                        gsm.push(new QuestionState(gsm, player.x, player.y));
+                        isQuestionAnswered.set(i/5, true);
+                    } else if (p.getY() == platformsDistance*50 && isQuestionAnswered.get(9)) {
+                        long stop = TimeUtils.millis();
+                        float time = (stop - start);
+                        gsm.set(new GameEndState(gsm, player.x, player.y, time));
+                        dispose();
+                    }
                 }
             }
         }
