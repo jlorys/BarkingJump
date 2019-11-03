@@ -15,7 +15,7 @@ public class JumpingDog extends ApplicationAdapter implements GestureDetector.Ge
     private GameStateManager gameStateManager;
 
     @Override
-    public void create () {
+    public void create() {
         spriteBatch = new SpriteBatch();
         gameStateManager = new GameStateManager();
         gameStateManager.push(new MenuState(gameStateManager));
@@ -27,7 +27,7 @@ public class JumpingDog extends ApplicationAdapter implements GestureDetector.Ge
     }
 
     @Override
-    public void render () {
+    public void render() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameStateManager.update(Gdx.graphics.getDeltaTime());
         gameStateManager.render(spriteBatch);

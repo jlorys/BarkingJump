@@ -31,11 +31,13 @@ public class JumpDogHero extends Rectangle {
         }
     }
 
+    public TextureRegion getTexture() {
+        return texture;
+    }
+
     public void setTexture(TextureRegion texture) {
         this.texture = texture;
     }
-
-    public TextureRegion getTexture() {return texture;}
 
     public boolean isCanJump() {
         return canJump;

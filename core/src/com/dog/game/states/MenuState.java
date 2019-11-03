@@ -27,7 +27,7 @@ public class MenuState extends State {
         logo = new Texture("logo.png");
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontParameter();
-        parameter.size = (int)percentOfWidth(0.066666667);
+        parameter.size = (int) percentOfWidth(0.066666667);
         font = generator.generateFont(parameter);
         generator.dispose();
     }

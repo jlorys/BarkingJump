@@ -26,17 +26,17 @@ abstract class State {
 
     public abstract void pan(float x, float y, float deltaX, float deltaY);
 
-    long percentOfWidth(double percent){
+    long percentOfWidth(double percent) {
         double screenValue = percent * Gdx.graphics.getWidth();
         return Math.round(screenValue);
     }
 
-    long percentOfHeight(double percent){
+    long percentOfHeight(double percent) {
         double screenValue = percent * Gdx.graphics.getHeight();
         return Math.round(screenValue);
     }
 
-    public String showPercentOfHeight(float x, float y){
+    public String showPercentOfHeight(float x, float y) {
         double screenValueX = x / Gdx.graphics.getWidth();
         double screenValueY = y / Gdx.graphics.getHeight();
         return (screenValueX + " " + screenValueY);

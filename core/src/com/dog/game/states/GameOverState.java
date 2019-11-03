@@ -24,7 +24,7 @@ class GameOverState extends State {
         this.playerY = playerY;
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int)percentOfWidth(0.233333333);
+        parameter.size = (int) percentOfWidth(0.233333333);
         font = generator.generateFont(parameter);
         generator.dispose();
     }

@@ -7,21 +7,17 @@ import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
 
 public class DatabaseInitialization {
-    private Database dbHandler;
-
     private static final String TABLE_RECORD = "record";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_RECORD_TIME = "record_time";
-
     private static final String DATABASE_NAME = "record.db";
     private static final int DATABASE_VERSION = 1;
-
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table if not exists "
             + TABLE_RECORD + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_RECORD_TIME
             + " real not null);";
-
+    private Database dbHandler;
     private Float actualRecord;
 
     public DatabaseInitialization() {

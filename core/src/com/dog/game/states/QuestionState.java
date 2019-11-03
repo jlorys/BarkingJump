@@ -43,7 +43,7 @@ public class QuestionState extends State {
         this.playerY = playerY;
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int)percentOfWidth(0.233333333);
+        parameter.size = (int) percentOfWidth(0.233333333);
         font = generator.generateFont(parameter);
         generator.dispose();
         loadQuestion();
@@ -56,19 +56,24 @@ public class QuestionState extends State {
         String addSubtractMultiplyDivide = "+-*/";
         whichArithmeticOperator = addSubtractMultiplyDivide.charAt(r.nextInt(abcd.length()));
 
-        Integer randomNumber1 = r.nextInt(15)-1;
-        Integer randomNumber2 = r.nextInt(15)-1;
+        Integer randomNumber1 = r.nextInt(15) - 1;
+        Integer randomNumber2 = r.nextInt(15) - 1;
 
         //Set is collection that store only unique values
         Set<Integer> answers = new LinkedHashSet<Integer>();
         //So this loop works until all values will be set, and all will be unique
         while (answers.size() < 4) {
-            if(answers.size() == 0){
-                if(whichArithmeticOperator == '+'){answers.add(randomNumber1 + randomNumber2);}
-                else if(whichArithmeticOperator == '-'){answers.add(randomNumber1 - randomNumber2);}
-                else if(whichArithmeticOperator == '*'){answers.add(randomNumber1 * randomNumber2);}
-                else if(whichArithmeticOperator == '/'){answers.add(randomNumber1 / randomNumber2);}
-            }else{
+            if (answers.size() == 0) {
+                if (whichArithmeticOperator == '+') {
+                    answers.add(randomNumber1 + randomNumber2);
+                } else if (whichArithmeticOperator == '-') {
+                    answers.add(randomNumber1 - randomNumber2);
+                } else if (whichArithmeticOperator == '*') {
+                    answers.add(randomNumber1 * randomNumber2);
+                } else if (whichArithmeticOperator == '/') {
+                    answers.add(randomNumber1 / randomNumber2);
+                }
+            } else {
                 Integer next = answers.iterator().next() + (r.nextInt(20) - 10);
                 answers.add(next);
             }
@@ -76,28 +81,28 @@ public class QuestionState extends State {
 
         //-4 index is first number, this is correct answer
         if (questionsGoodAnswer == 'a') {
-            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+            question = new Question(randomNumber1 + " " + this.whichArithmeticOperator + " " + randomNumber2,
                     "" + answers.toArray()[answers.size() - 4],
                     "" + answers.toArray()[answers.size() - 1],
                     "" + answers.toArray()[answers.size() - 2],
                     "" + answers.toArray()[answers.size() - 3],
                     'a');
         } else if (questionsGoodAnswer == 'b') {
-            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+            question = new Question(randomNumber1 + " " + this.whichArithmeticOperator + " " + randomNumber2,
                     "" + answers.toArray()[answers.size() - 1],
                     "" + answers.toArray()[answers.size() - 4],
                     "" + answers.toArray()[answers.size() - 2],
                     "" + answers.toArray()[answers.size() - 3],
                     'b');
         } else if (questionsGoodAnswer == 'c') {
-            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+            question = new Question(randomNumber1 + " " + this.whichArithmeticOperator + " " + randomNumber2,
                     "" + answers.toArray()[answers.size() - 1],
                     "" + answers.toArray()[answers.size() - 2],
                     "" + answers.toArray()[answers.size() - 4],
                     "" + answers.toArray()[answers.size() - 3],
                     'c');
         } else {
-            question = new Question(randomNumber1 + " "+this.whichArithmeticOperator+" " + randomNumber2,
+            question = new Question(randomNumber1 + " " + this.whichArithmeticOperator + " " + randomNumber2,
                     "" + answers.toArray()[answers.size() - 1],
                     "" + answers.toArray()[answers.size() - 2],
                     "" + answers.toArray()[answers.size() - 3],

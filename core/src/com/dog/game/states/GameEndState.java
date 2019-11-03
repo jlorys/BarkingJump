@@ -31,7 +31,7 @@ class GameEndState extends State {
         }
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int)percentOfWidth(0.191666667);
+        parameter.size = (int) percentOfWidth(0.191666667);
         font = generator.generateFont(parameter);
         generator.dispose();
     }
