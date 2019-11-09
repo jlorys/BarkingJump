@@ -42,7 +42,7 @@ class GameOverState extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(background, playerX - percentOfWidth(0.253333), playerY - percentOfHeight(0.262275), Gdx.graphics.getWidth() + percentOfWidth(0.40), Gdx.graphics.getHeight() + percentOfHeight(0.40));
-        sb.draw(playBtn, playerX, playerY + percentOfHeight(0.409836066));
+        sb.draw(playBtn, playerX, playerY + percentOfHeight(0.409836066), percentOfWidth(0.4), percentOfHeight(0.1));
         font.draw(sb, "Game", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.807962529));
         font.draw(sb, "Over", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.690866511));
         sb.end();
@@ -58,8 +58,7 @@ class GameOverState extends State {
     @Override
     public void tap(float x, float y, int count, int button) {
         Rectangle textureBounds;
-        textureBounds = new Rectangle(percentOfWidth(0.183333333), percentOfHeight(0.411007026), playBtn.getWidth(), playBtn.getHeight());
-
+        textureBounds = new Rectangle(percentOfWidth(0.1833333), percentOfHeight(0.3946135938167572), percentOfWidth(0.297916651), percentOfHeight(0.070257634));
         if (textureBounds.contains(x, y)) {
             gsm.set(new PlayState(gsm));
         }
