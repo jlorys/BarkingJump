@@ -50,7 +50,7 @@ public class QuestionState extends State {
         Random r = new Random();
         String abcd = "abcd";
         Character questionsGoodAnswer = abcd.charAt(r.nextInt(abcd.length()));
-        String addSubtractMultiplyDivide = "+-*/";
+        String addSubtractMultiplyDivide = "+-x/";
         Character whichArithmeticOperator = addSubtractMultiplyDivide.charAt(r.nextInt(abcd.length()));
 
         Integer randomNumber1 = r.nextInt(15) - 1;
@@ -65,7 +65,7 @@ public class QuestionState extends State {
                     answers.add(randomNumber1 + randomNumber2);
                 } else if (whichArithmeticOperator == '-') {
                     answers.add(randomNumber1 - randomNumber2);
-                } else if (whichArithmeticOperator == '*') {
+                } else if (whichArithmeticOperator == 'x') {
                     answers.add(randomNumber1 * randomNumber2);
                 } else if (whichArithmeticOperator == '/') {
                     answers.add(randomNumber1 / randomNumber2);
