@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.dog.game.DatabaseInitialization;
 
+import java.math.BigDecimal;
+
 class GameEndState extends State {
 
     private Texture background;
@@ -26,12 +28,13 @@ class GameEndState extends State {
         this.playerX = playerX;
         this.playerY = playerY;
         this.time = time / 1000;
+        this.time = round(this.time, 2);
         if (this.time < record) {
             db.insertRecord(this.time);
         }
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) percentOfWidth(0.191666667);
+        parameter.size = (int) percentOfWidth(0.066666667);
         font = generator.generateFont(parameter);
         generator.dispose();
     }
@@ -51,7 +54,7 @@ class GameEndState extends State {
         sb.draw(background, playerX - percentOfWidth(0.253333), playerY - percentOfHeight(0.262275), Gdx.graphics.getWidth() + percentOfWidth(0.40), Gdx.graphics.getHeight() + percentOfHeight(0.40));
         sb.draw(playBtn, playerX, playerY + percentOfHeight(0.409836066), percentOfWidth(0.4), percentOfHeight(0.1));
         font.draw(sb, "Koniec", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.866510539));
-        font.draw(sb, "Twój czas: ", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.351288056));
+        font.draw(sb, "Czas: ", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.351288056));
         font.draw(sb, time.toString(), playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.234192037));
         font.draw(sb, "Rekord: ", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.117096));
         font.draw(sb, record.toString(), playerX - percentOfWidth(0.1875), playerY);
@@ -78,5 +81,11 @@ class GameEndState extends State {
     @Override
     public void pan(float x, float y, float deltaX, float deltaY) {
 
+    }
+
+    public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }

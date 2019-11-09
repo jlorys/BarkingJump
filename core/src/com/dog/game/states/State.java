@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 abstract class State {
     GameStateManager gsm;
-    OrthographicCamera cam;
+    private OrthographicCamera cam;
 
     State(GameStateManager gsm) {
         this.gsm = gsm;

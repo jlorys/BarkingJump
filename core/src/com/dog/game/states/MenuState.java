@@ -13,11 +13,8 @@ public class MenuState extends State {
 
     private Texture background;
     private Texture playBtn, logo;
-    private Rectangle textureBounds;
     private DatabaseInitialization db = new DatabaseInitialization();
     private Float record = db.getActualRecord();
-    private FreeTypeFontGenerator generator;
-    private FreeTypeFontParameter parameter;
     private BitmapFont font;
 
     public MenuState(GameStateManager gsm) {
@@ -25,8 +22,8 @@ public class MenuState extends State {
         background = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
         logo = new Texture("logo.png");
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
-        parameter = new FreeTypeFontParameter();
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = (int) percentOfWidth(0.066666667);
         font = generator.generateFont(parameter);
         generator.dispose();
@@ -62,7 +59,8 @@ public class MenuState extends State {
 
     @Override
     public void tap(float x, float y, int count, int button) {
-        this.textureBounds = new Rectangle(percentOfWidth(0.39375), percentOfHeight(0.46487),
+        Rectangle textureBounds;
+        textureBounds = new Rectangle(percentOfWidth(0.39375), percentOfHeight(0.46487),
                 percentOfWidth(0.210416687),
                 percentOfHeight(0.067916906));
 
