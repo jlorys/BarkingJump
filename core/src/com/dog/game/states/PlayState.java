@@ -35,6 +35,7 @@ class PlayState extends State {
     private TextureRegion currentFrame;
     private Texture currentJumpTexture;
     private List<Boolean> isQuestionAnswered = Arrays.asList(new Boolean[10]);
+    private float time;
 
     PlayState(GameStateManager gsm) {
         super(gsm);
@@ -180,11 +181,13 @@ class PlayState extends State {
                     if (p.getY() == platformsDistance * i && !isQuestionAnswered.get((i / 5) - 1)) {
                         gsm.push(new QuestionState(gsm, player.x, player.y));
                         isQuestionAnswered.set((i / 5) - 1, true);
-                    } else if (p.getY() == platformsDistance * 50 && isQuestionAnswered.get(9)) {
-                        long stop = TimeUtils.millis();
-                        float time = (stop - start);
-                        gsm.set(new GameEndState(gsm, player.x, player.y, time));
-                        dispose();
+                    } else if (p.getY() == platformsDistance * 4) {
+                        if (this.time == 0) {
+                            long stop = TimeUtils.millis();
+                            this.time = (stop - start);
+                            gsm.set(new GameEndState(gsm, player.x, player.y, time));
+                            dispose();
+                        }
                     }
                 }
             }

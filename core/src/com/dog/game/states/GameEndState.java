@@ -1,6 +1,7 @@
 package com.dog.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,8 @@ class GameEndState extends State {
     private DatabaseInitialization db = new DatabaseInitialization();
     private Float record = db.getActualRecord();
     private BitmapFont font;
+    private BitmapFont fontNewRecord;
+    private boolean newRecord;
 
     GameEndState(GameStateManager gsm, Float playerX, Float playerY, Float time) {
         super(gsm);
@@ -31,11 +34,13 @@ class GameEndState extends State {
         this.time = round(this.time, 2);
         if (this.time < record) {
             db.insertRecord(this.time);
+            this.newRecord = true;
         }
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int) percentOfWidth(0.11);
         font = generator.generateFont(parameter);
+        fontNewRecord = generator.generateFont(parameter);
         generator.dispose();
     }
 
@@ -58,6 +63,10 @@ class GameEndState extends State {
         font.draw(sb, time.toString(), playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.234192037));
         font.draw(sb, "Rekord: ", playerX - percentOfWidth(0.1875), playerY + percentOfHeight(0.117096));
         font.draw(sb, record.toString(), playerX - percentOfWidth(0.1875), playerY);
+        if(newRecord){
+            fontNewRecord.setColor(Color.GREEN);
+            fontNewRecord.draw(sb, "Nowy Rekord!", playerX - percentOfWidth(0.1875), playerY - percentOfHeight(0.117096));
+        }
         sb.end();
     }
 
