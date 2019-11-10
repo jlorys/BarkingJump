@@ -114,8 +114,10 @@ class PlayState extends State {
                 // Get current frame of animation for the current stateTimeLeft
                 currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
                 player.setTexture(currentFrame);
+                currentJumpTexture = playerTextureJumpLeft;
             } else {
                 player.setTexture(new TextureRegion(currentJumpTexture));
+                currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
             }
 
         }
@@ -128,8 +130,10 @@ class PlayState extends State {
                 // Get current frame of animation for the current stateTimeLeft
                 currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
                 player.setTexture(currentFrame);
+                currentJumpTexture = playerTextureJumpRight;
             } else {
                 player.setTexture(new TextureRegion(currentJumpTexture));
+                currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
             }
         }
     }
@@ -181,7 +185,7 @@ class PlayState extends State {
                     if (p.getY() == platformsDistance * i && !isQuestionAnswered.get((i / 5) - 1)) {
                         gsm.push(new QuestionState(gsm, player.x, player.y));
                         isQuestionAnswered.set((i / 5) - 1, true);
-                    } else if (p.getY() == platformsDistance * 4) {
+                    } else if (p.getY() == platformsDistance * 50 && isQuestionAnswered.get(9)) {
                         if (this.time == 0) {
                             long stop = TimeUtils.millis();
                             this.time = (stop - start);
@@ -283,8 +287,10 @@ class PlayState extends State {
                 // Get current frame of animation for the current stateTimeLeft
                 currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
                 player.setTexture(currentFrame);
+                currentJumpTexture = playerTextureJumpRight;
             } else {
                 player.setTexture(new TextureRegion(currentJumpTexture));
+                currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
             }
         } else {
             player.x -= 200 * Gdx.graphics.getDeltaTime();
@@ -295,8 +301,10 @@ class PlayState extends State {
                 // Get current frame of animation for the current stateTimeLeft
                 currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
                 player.setTexture(currentFrame);
+                currentJumpTexture = playerTextureJumpLeft;
             } else {
                 player.setTexture(new TextureRegion(currentJumpTexture));
+                currentFrame = walkAnimationLeft.getKeyFrame(player.getStateTimeLeft(), true);
             }
         }
     }
