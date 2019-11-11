@@ -73,10 +73,10 @@ class PlayState extends State {
 
         for (int i = 1; i <= 50; i++) {
             Platform p = new Platform(platformTexture, platformsHeight);
-            p.x = MathUtils.random(percentOfWidth(1.25));
+            p.x = MathUtils.random(percentOfWidth(0.7));
             p.y = platformsDistance * i;
             Platform pQuestion = new Platform(platformQuestionTexture, platformsHeight);
-            pQuestion.x = MathUtils.random(percentOfWidth(1.25));
+            pQuestion.x = MathUtils.random(percentOfWidth(0.7));
             pQuestion.y = platformsDistance * i;
 
             if (i % 5 == 0) platformArray.add(pQuestion);
