@@ -279,7 +279,7 @@ class PlayState extends State {
     public void pan(float x, float y, float deltaX, float deltaY) {
         float centerX = percentOfWidth(0.5);
         if (centerX < x) {
-            player.x += percentOfWidth(0.5) * Gdx.graphics.getDeltaTime();
+            player.x += percentOfWidth(0.28) * Gdx.graphics.getDeltaTime();
             currentJumpTexture = playerTextureJumpRight;
 
             if (player.isCanJump()) {
@@ -293,7 +293,7 @@ class PlayState extends State {
                 currentFrame = walkAnimationRight.getKeyFrame(player.getStateTimeRight(), true);
             }
         } else {
-            player.x -= percentOfWidth(0.5) * Gdx.graphics.getDeltaTime();
+            player.x -= percentOfWidth(0.28) * Gdx.graphics.getDeltaTime();
             currentJumpTexture = playerTextureJumpLeft;
 
             if (player.isCanJump()) {
