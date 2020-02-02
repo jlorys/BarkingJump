@@ -13,6 +13,7 @@ import com.dog.game.states.MenuState
 class JumpingDog : ApplicationAdapter(), GestureListener {
     private var spriteBatch: SpriteBatch? = null
     private var gameStateManager: GameStateManager? = null
+
     override fun create() {
         spriteBatch = SpriteBatch()
         gameStateManager = GameStateManager()
@@ -38,29 +39,11 @@ class JumpingDog : ApplicationAdapter(), GestureListener {
         return true
     }
 
-    override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        return false
-    }
-
-    override fun longPress(x: Float, y: Float): Boolean {
-        return false
-    }
-
-    override fun fling(velocityX: Float, velocityY: Float, button: Int): Boolean {
-        return false
-    }
-
-    override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        return false
-    }
-
-    override fun zoom(initialDistance: Float, distance: Float): Boolean {
-        return false
-    }
-
-    override fun pinch(initialPointer1: Vector2, initialPointer2: Vector2, pointer1: Vector2, pointer2: Vector2): Boolean {
-        return false
-    }
-
+    override fun touchDown(x: Float, y: Float, pointer: Int, button: Int) = false
+    override fun longPress(x: Float, y: Float) = false
+    override fun fling(velocityX: Float, velocityY: Float, button: Int) = false
+    override fun panStop(x: Float, y: Float, pointer: Int, button: Int) = false
+    override fun zoom(initialDistance: Float, distance: Float) = false
+    override fun pinch(initialPointer1: Vector2, initialPointer2: Vector2, pointer1: Vector2, pointer2: Vector2) = false
     override fun pinchStop() {}
 }

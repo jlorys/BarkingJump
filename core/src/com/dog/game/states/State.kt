@@ -12,6 +12,7 @@ abstract class State internal constructor(var gsm: GameStateManager) {
     abstract fun dispose()
     abstract fun tap(x: Float, y: Float, count: Int, button: Int)
     abstract fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float)
+
     fun percentOfWidth(percent: Double): Long {
         val screenValue = percent * Gdx.graphics.width
         return Math.round(screenValue)

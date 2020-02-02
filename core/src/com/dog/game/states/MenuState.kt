@@ -10,9 +10,9 @@ import com.badlogic.gdx.math.Rectangle
 import com.dog.game.DatabaseInitialization
 
 class MenuState(gsm: GameStateManager?) : State(gsm!!) {
-    private val background: Texture
-    private val playBtn: Texture
-    private val logo: Texture
+    private val background = Texture("bg.png")
+    private val playBtn = Texture("playbtn.png")
+    private val logo = Texture("logo.png")
     private val db = DatabaseInitialization()
     private val record = db.actualRecord
     private val font: BitmapFont
@@ -39,8 +39,7 @@ class MenuState(gsm: GameStateManager?) : State(gsm!!) {
     }
 
     override fun tap(x: Float, y: Float, count: Int, button: Int) {
-        val textureBounds: Rectangle
-        textureBounds = Rectangle(percentOfWidth(0.39375).toFloat(), percentOfHeight(0.46487).toFloat(),
+        val textureBounds = Rectangle(percentOfWidth(0.39375).toFloat(), percentOfHeight(0.46487).toFloat(),
                 percentOfWidth(0.210416687).toFloat(),
                 percentOfHeight(0.067916906).toFloat())
         if (textureBounds.contains(x, y)) {
@@ -51,9 +50,6 @@ class MenuState(gsm: GameStateManager?) : State(gsm!!) {
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float) {}
 
     init {
-        background = Texture("bg.png")
-        playBtn = Texture("playbtn.png")
-        logo = Texture("logo.png")
         val generator = FreeTypeFontGenerator(Gdx.files.internal("font.ttf"))
         val parameter = FreeTypeFontParameter()
         parameter.size = percentOfWidth(0.066666667).toInt()

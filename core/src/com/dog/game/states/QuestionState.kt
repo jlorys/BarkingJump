@@ -27,6 +27,7 @@ class QuestionState(gsm: GameStateManager?, playerX: Float, playerY: Float) : St
     private val badAnswerSound: Sound = Gdx.audio.newSound(Gdx.files.internal("badanswer.mp3"))
     private var question: Question? = null
     private val font: BitmapFont
+
     private fun loadQuestion() {
         val r = Random()
         val abcd = "abcd"
@@ -40,14 +41,11 @@ class QuestionState(gsm: GameStateManager?, playerX: Float, playerY: Float) : St
         //So this loop works until all values will be set, and all will be unique
         while (answers.size < 4) {
             if (answers.size == 0) {
-                if (whichArithmeticOperator == '+') {
-                    answers.add(randomNumber1 + randomNumber2)
-                } else if (whichArithmeticOperator == '-') {
-                    answers.add(randomNumber1 - randomNumber2)
-                } else if (whichArithmeticOperator == 'x') {
-                    answers.add(randomNumber1 * randomNumber2)
-                } else if (whichArithmeticOperator == '/') {
-                    answers.add(randomNumber1 / randomNumber2)
+                when (whichArithmeticOperator) {
+                    '+' -> answers.add(randomNumber1 + randomNumber2)
+                    '-' -> answers.add(randomNumber1 - randomNumber2)
+                    'x' -> answers.add(randomNumber1 * randomNumber2)
+                    '/' -> answers.add(randomNumber1 / randomNumber2)
                 }
             } else {
                 val next = answers.iterator().next() + (r.nextInt(20) - 10)
@@ -55,41 +53,44 @@ class QuestionState(gsm: GameStateManager?, playerX: Float, playerY: Float) : St
             }
         }
         //-4 index is first number, this is correct answer
-        question = if (questionsGoodAnswer == 'a') {
-            Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
-                    "" + answers.toTypedArray()[answers.size - 4],
-                    "" + answers.toTypedArray()[answers.size - 1],
-                    "" + answers.toTypedArray()[answers.size - 2],
-                    "" + answers.toTypedArray()[answers.size - 3],
-                    'a')
-        } else if (questionsGoodAnswer == 'b') {
-            Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
-                    "" + answers.toTypedArray()[answers.size - 1],
-                    "" + answers.toTypedArray()[answers.size - 4],
-                    "" + answers.toTypedArray()[answers.size - 2],
-                    "" + answers.toTypedArray()[answers.size - 3],
-                    'b')
-        } else if (questionsGoodAnswer == 'c') {
-            Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
-                    "" + answers.toTypedArray()[answers.size - 1],
-                    "" + answers.toTypedArray()[answers.size - 2],
-                    "" + answers.toTypedArray()[answers.size - 4],
-                    "" + answers.toTypedArray()[answers.size - 3],
-                    'c')
-        } else {
-            Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
-                    "" + answers.toTypedArray()[answers.size - 1],
-                    "" + answers.toTypedArray()[answers.size - 2],
-                    "" + answers.toTypedArray()[answers.size - 3],
-                    "" + answers.toTypedArray()[answers.size - 4],
-                    'd')
+        question = when (questionsGoodAnswer) {
+            'a' -> {
+                Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
+                        "" + answers.toTypedArray()[answers.size - 4],
+                        "" + answers.toTypedArray()[answers.size - 1],
+                        "" + answers.toTypedArray()[answers.size - 2],
+                        "" + answers.toTypedArray()[answers.size - 3],
+                        'a')
+            }
+            'b' -> {
+                Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
+                        "" + answers.toTypedArray()[answers.size - 1],
+                        "" + answers.toTypedArray()[answers.size - 4],
+                        "" + answers.toTypedArray()[answers.size - 2],
+                        "" + answers.toTypedArray()[answers.size - 3],
+                        'b')
+            }
+            'c' -> {
+                Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
+                        "" + answers.toTypedArray()[answers.size - 1],
+                        "" + answers.toTypedArray()[answers.size - 2],
+                        "" + answers.toTypedArray()[answers.size - 4],
+                        "" + answers.toTypedArray()[answers.size - 3],
+                        'c')
+            }
+            else -> {
+                Question("$randomNumber1 $whichArithmeticOperator $randomNumber2",
+                        "" + answers.toTypedArray()[answers.size - 1],
+                        "" + answers.toTypedArray()[answers.size - 2],
+                        "" + answers.toTypedArray()[answers.size - 3],
+                        "" + answers.toTypedArray()[answers.size - 4],
+                        'd')
+            }
         }
     }
 
     override fun handleInput() {}
-    override fun update(dt: Float) {
-        handleInput()
-    }
+    override fun update(dt: Float) = handleInput()
 
     override fun render(sb: SpriteBatch?) {
         sb!!.begin()

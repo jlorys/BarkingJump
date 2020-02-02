@@ -9,10 +9,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.math.Rectangle
 
 internal class GameOverState(gsm: GameStateManager?, playerX: Float, playerY: Float) : State(gsm!!) {
-    private val background: Texture
-    private val playBtn: Texture
-    private val playerX: Float
-    private val playerY: Float
+    private val background = Texture("bg.png")
+    private val playBtn = Texture("playbtn.png")
+    private val playerX = playerX
+    private val playerY = playerY
     private val font: BitmapFont
     override fun handleInput() {}
     override fun update(dt: Float) {
@@ -35,8 +35,7 @@ internal class GameOverState(gsm: GameStateManager?, playerX: Float, playerY: Fl
     }
 
     override fun tap(x: Float, y: Float, count: Int, button: Int) {
-        val textureBounds: Rectangle
-        textureBounds = Rectangle(percentOfWidth(0.1833333).toFloat(), percentOfHeight(0.3946135938167572).toFloat(), percentOfWidth(0.297916651).toFloat(), percentOfHeight(0.070257634).toFloat())
+        val textureBounds = Rectangle(percentOfWidth(0.1833333).toFloat(), percentOfHeight(0.3946135938167572).toFloat(), percentOfWidth(0.297916651).toFloat(), percentOfHeight(0.070257634).toFloat())
         if (textureBounds.contains(x, y)) {
             gsm.set(PlayState(gsm))
         }
@@ -45,14 +44,8 @@ internal class GameOverState(gsm: GameStateManager?, playerX: Float, playerY: Fl
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float) {}
 
     init {
-        val generator: FreeTypeFontGenerator
-        val parameter: FreeTypeFontParameter
-        background = Texture("bg.png")
-        playBtn = Texture("playbtn.png")
-        this.playerX = playerX
-        this.playerY = playerY
-        generator = FreeTypeFontGenerator(Gdx.files.internal("font.ttf"))
-        parameter = FreeTypeFontParameter()
+        val generator = FreeTypeFontGenerator(Gdx.files.internal("font.ttf"))
+        val parameter = FreeTypeFontParameter()
         parameter.size = percentOfWidth(0.233333333).toInt()
         font = generator.generateFont(parameter)
         generator.dispose()

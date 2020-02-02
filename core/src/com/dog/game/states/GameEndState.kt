@@ -12,17 +12,19 @@ import com.dog.game.DatabaseInitialization
 import java.math.BigDecimal
 
 internal class GameEndState(gsm: GameStateManager?, playerX: Float, playerY: Float, time: Float) : State(gsm!!) {
-    private val background: Texture
-    private val playBtn: Texture
-    private val playerX: Float
-    private val playerY: Float
-    private var time: Float
+    private val background = Texture("bg.png")
+    private val playBtn = Texture("playbtn.png")
+    private val playerX = playerX
+    private val playerY = playerY
+    private var time = time / 1000
     private val db = DatabaseInitialization()
     private val record = db.actualRecord
     private val font: BitmapFont
     private val fontNewRecord: BitmapFont
     private var newRecord = false
+
     override fun handleInput() {}
+
     override fun update(dt: Float) {
         handleInput()
     }
@@ -50,8 +52,7 @@ internal class GameEndState(gsm: GameStateManager?, playerX: Float, playerY: Flo
     }
 
     override fun tap(x: Float, y: Float, count: Int, button: Int) {
-        val textureBounds: Rectangle
-        textureBounds = Rectangle(percentOfWidth(0.1833333).toFloat(), percentOfHeight(0.3946135938167572).toFloat(), percentOfWidth(0.297916651).toFloat(), percentOfHeight(0.070257634).toFloat())
+        val textureBounds = Rectangle(percentOfWidth(0.1833333).toFloat(), percentOfHeight(0.3946135938167572).toFloat(), percentOfWidth(0.297916651).toFloat(), percentOfHeight(0.070257634).toFloat())
         if (textureBounds.contains(x, y)) {
             gsm.set(PlayState(gsm))
         }
@@ -61,27 +62,20 @@ internal class GameEndState(gsm: GameStateManager?, playerX: Float, playerY: Flo
 
     companion object {
         private fun round(d: Float, decimalPlace: Int): Float {
-            var bd = BigDecimal(java.lang.Float.toString(d))
+            var bd = BigDecimal(d.toString())
             bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP)
             return bd.toFloat()
         }
     }
 
     init {
-        val generator: FreeTypeFontGenerator
-        val parameter: FreeTypeFontParameter
-        background = Texture("bg.png")
-        playBtn = Texture("playbtn.png")
-        this.playerX = playerX
-        this.playerY = playerY
-        this.time = time / 1000
         this.time = round(this.time, 2)
         if (this.time < record!!) {
             db.insertRecord(this.time)
             newRecord = true
         }
-        generator = FreeTypeFontGenerator(Gdx.files.internal("font.ttf"))
-        parameter = FreeTypeFontParameter()
+        val generator = FreeTypeFontGenerator(Gdx.files.internal("font.ttf"))
+        val parameter = FreeTypeFontParameter()
         parameter.size = percentOfWidth(0.11).toInt()
         font = generator.generateFont(parameter)
         fontNewRecord = generator.generateFont(parameter)

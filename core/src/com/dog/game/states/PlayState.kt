@@ -41,9 +41,8 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
     private var currentJumpTexture: Texture? = null
     private val isQuestionAnswered = Arrays.asList<Boolean>(*arrayOfNulls(10))
     private var time = 0f
+
     private fun loadData() {
-        val walkFramesLeft: Array<TextureRegion?>
-        val walkFramesRight: Array<TextureRegion?>
         stone = Texture(Gdx.files.internal("stone.png"))
         stoneWaterRight = Texture(Gdx.files.internal("stonewaterright.png"))
         stoneWaterLeft = Texture(Gdx.files.internal("stonewaterleft.png"))
@@ -52,8 +51,8 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
         playerTextureJumpLeft = Texture(Gdx.files.internal("dog jump left.png"))
         playerTextureWalkRight = Texture(Gdx.files.internal("dogright1.png"))
         playerTextureJumpRight = Texture(Gdx.files.internal("dog jump right.png"))
-        walkFramesLeft = DivideToRegion(playerTextureWalkLeft!!)
-        walkFramesRight = DivideToRegion(playerTextureWalkRight!!)
+        val walkFramesLeft: Array<TextureRegion?> = divideToRegion(playerTextureWalkLeft!!)
+        val walkFramesRight: Array<TextureRegion?> = divideToRegion(playerTextureWalkRight!!)
         walkAnimationLeft = Animation<TextureRegion>(0.025f, *walkFramesLeft)
         walkAnimationRight = Animation<TextureRegion>(0.025f, *walkFramesRight)
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"))
@@ -80,7 +79,7 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
         }
     }
 
-    private fun DivideToRegion(texture: Texture): Array<TextureRegion?> {
+    private fun divideToRegion(texture: Texture): Array<TextureRegion?> {
         val tmp = TextureRegion.split(texture,
                 texture.width / FRAME_COLS,
                 texture.height / FRAME_ROWS)
@@ -94,9 +93,7 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
         return walkFrames
     }
 
-    private fun isPlayerOnPlatform(p: Platform): Boolean {
-        return player!!.jumpVelocity <= 0 && player!!.overlaps(p) && player!!.y > p.y
-    }
+    private fun isPlayerOnPlatform(p: Platform) = player!!.jumpVelocity <= 0 && player!!.overlaps(p) && player!!.y > p.y
 
     override fun handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
@@ -190,9 +187,9 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
         sb.end()
     }
 
-    private fun drawDogPlayer(sb: SpriteBatch?) {
+    private fun drawDogPlayer(sb: SpriteBatch?) =
         sb?.let { player!!.draw(it, percentOfWidth(0.816666667), percentOfHeight(0.221311475)) }
-    }
+
 
     private fun drawPlatforms(sb: SpriteBatch?) {
         for (p in platformArray!!) {
@@ -204,27 +201,27 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
     private fun drawGroundAndWater(sb: SpriteBatch?) {
         var x = (-percentOfWidth(4.375)).toInt()
         for (j in 0..18) {
-            if (x < -percentOfWidth(2.5))
-                sb!!.draw(water, x.toFloat(),
+            when {
+                x < -percentOfWidth(2.5) -> sb!!.draw(water, x.toFloat(),
                         -percentOfHeight(0.351288056).toFloat(),
                         percentOfWidth(0.625).toFloat(),
                         percentOfHeight(0.351288056).toFloat())
-            else if (x.toLong() == -percentOfWidth(2.5))
-                sb!!.draw(stoneWaterLeft, x.toFloat(),
+                x.toLong() == -percentOfWidth(2.5) -> sb!!.draw(stoneWaterLeft, x.toFloat(),
                         -percentOfHeight(0.351288056).toFloat(),
                         percentOfWidth(0.625).toFloat(),
                         percentOfHeight(0.351288056).toFloat())
-            else if (j < 15) sb!!.draw(stone, x.toFloat(),
-                    -percentOfHeight(0.351288056).toFloat(),
-                    percentOfWidth(0.625).toFloat(),
-                    percentOfHeight(0.351288056).toFloat())
-            else if (j == 15) sb!!.draw(stoneWaterRight, x.toFloat(),
-                    -percentOfHeight(0.351288056).toFloat(),
-                    percentOfWidth(0.625).toFloat(),
-                    percentOfHeight(0.351288056).toFloat())
-            else sb!!.draw(water, x.toFloat(), -percentOfHeight(0.351288056).toFloat(),
-                    percentOfWidth(0.625).toFloat(),
-                    percentOfHeight(0.351288056).toFloat())
+                j < 15 -> sb!!.draw(stone, x.toFloat(),
+                        -percentOfHeight(0.351288056).toFloat(),
+                        percentOfWidth(0.625).toFloat(),
+                        percentOfHeight(0.351288056).toFloat())
+                j == 15 -> sb!!.draw(stoneWaterRight, x.toFloat(),
+                        -percentOfHeight(0.351288056).toFloat(),
+                        percentOfWidth(0.625).toFloat(),
+                        percentOfHeight(0.351288056).toFloat())
+                else -> sb!!.draw(water, x.toFloat(), -percentOfHeight(0.351288056).toFloat(),
+                        percentOfWidth(0.625).toFloat(),
+                        percentOfHeight(0.351288056).toFloat())
+            }
             x += percentOfWidth(0.625).toInt()
         }
     }
@@ -258,9 +255,9 @@ internal class PlayState(gsm: GameStateManager?) : State(gsm!!) {
         currentJumpTexture!!.dispose()
     }
 
-    override fun tap(x: Float, y: Float, count: Int, button: Int) {
+    override fun tap(x: Float, y: Float, count: Int, button: Int) =
         player!!.jump(playerVelocity)
-    }
+
 
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float) {
         val centerX = percentOfWidth(0.5).toFloat()

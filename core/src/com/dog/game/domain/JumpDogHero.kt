@@ -10,9 +10,9 @@ class JumpDogHero(var texture: TextureRegion, private val jumpSound: Sound) : Re
     var stateTimeLeft = 0f
     var stateTimeRight = 0f
     var jumpVelocity = 0f
-    fun draw(batch: SpriteBatch, width: Long, height: Long) {
+
+    fun draw(batch: SpriteBatch, width: Long, height: Long) =
         batch.draw(texture, x, y, width.toFloat(), height.toFloat())
-    }
 
     fun jump(playerVelocity: Float) {
         if (isCanJump && jumpVelocity >= -100) {
